@@ -1,0 +1,12 @@
+AuthUserFile /virtual/shiromi/public_html/ec.nya-n.xyz/control/.htpasswd
+AuthGroupFile /dev/null
+AuthName MembersOnly
+AuthType Basic
+
+<Limit GET POST>
+require valid-user
+</Limit>
+
+<Files ~ "^.(htpasswd|htaccess)$">
+  deny from all
+</Files>

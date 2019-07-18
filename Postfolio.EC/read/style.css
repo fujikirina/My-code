@@ -1,0 +1,275 @@
+@charset "utf-8";
+/* CSS Document */
+
+#vegas {
+    min-height: 100vh
+}
+
+/* タイトル用フォントの指定 */
+@font-face {
+    font-family: 'mini-wakuwaku-maru';
+    src: url('./font/mini-wakuwaku-maru.otf') format('opentype');
+}
+
+h1 {
+    font-family: 'mini-wakuwaku-maru' !important;
+}
+
+.display-4 {
+    font-family: 'mini-wakuwaku-maru' !important;
+}
+
+/* スタイルの設定 */
+.text-shadow-lp{
+	text-shadow: 1px 1px 2px #FFF !important;
+}
+
+.text-shadow-b{
+  text-shadow: 1px 1px 1px #18324d !important;
+}
+
+a.text-shadow-b{
+  text-shadow: 1px 1px 1px #2b496b !important;
+}
+
+.top1{
+  width: 100vw;
+  height: 30vh !important;
+}
+
+.top2{
+  width: 100vw !important;
+  height: 60vh !important;
+  text-align: center;
+}
+
+.navbar-light{
+  background-color: #23576C !important;
+}
+
+.text-lightpink{
+  color: #E49B7f !important;
+}
+
+.text-pink{
+  color: #ed746c !important;
+}
+
+.text-light{
+  color: #ede8d9 !important;
+}
+
+.backlight{
+  background-color: #ede8d9;
+}
+
+.backdark{
+  background-color: #23576C;
+  color: #ede8d9;
+}
+
+.backImg{
+  background:url(../img/car1.jpg) no-repeat !important;
+}
+
+.navbar-light .navbar-toggler {
+    background-color: #ede8d9;
+}
+
+#carousel{
+  border: 2px solid #23576C;
+}
+
+.img-m {
+  object-fit: cover !important;
+  height: 200px !important;
+  border-bottom: 1px solid #84cbc2;
+}
+
+.card-p{
+  background-color: #ede8d9 !important;
+  padding: 5px !important;
+  border:none !important;
+}
+
+.card-b{
+  background-color: #84cbc2 !important;
+  border-radius: 5px;
+  border: 5px solid #84cbc2;
+  color: #000000 !important;
+}
+
+.card-b:hover {
+  color:#000000 !important;
+  text-decoration:none !important;
+}
+
+.c-b-size{
+  height: 70px !important;
+}
+
+/* btn-infoの設定 */
+.btn-info {
+  color: #000000;
+  background-color: #ed746c !important;
+  border-color: #2b496b !important;
+}
+
+.btn-info:hover {
+  color: #000000;
+  background-color: #cc5a52 !important;
+  border-color: #cc5a52 !important;
+}
+
+.btn-info:focus, .btn-info.focus {
+  box-shadow: 0 0 0 0.2rem rgba(41, 69, 102, 0.5) !important;
+}
+
+.btn-info.disabled, .btn-info:disabled {
+  color: #000000;
+  background-color: #ed746c !important;
+  border-color: #2b496b !important;
+}
+
+.btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active,
+.show > .btn-info.dropdown-toggle {
+  color: #000000;
+  background-color: #cc5a52 !important;
+  border-color: #cc5a52 !important;
+}
+
+.btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus,
+.show > .btn-info.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(41, 69, 102, 0.5) !important;
+}
+
+.btn-pink {
+  color: #000000;
+  background-color: #ed746c !important;
+  border-color: #23576c !important;
+  border-radius: 5px !important;
+}
+
+.btn-pink:hover {
+  color: #000000;
+  background-color: #cc5a52 !important;
+  border-color: #23576c !important;
+}
+
+.btn-pink:focus, .btn-pink.focus {
+  box-shadow: 0 0 0 0.2rem rgba(237, 149, 142, 0.5) !important;
+}
+
+.btn-pink.disabled, .btn-pink:disabled {
+  color: #000000;
+  background-color: #ed746c !important;
+  border-color: #23576c !important;
+}
+
+.btn-pink:not(:disabled):not(.disabled):active, .btn-pink:not(:disabled):not(.disabled).active,
+.show > .btn-pink.dropdown-toggle {
+  color: #000000;
+  background-color: #cc5a52 !important;
+  border-color: #23576c !important;
+}
+
+.btn-pink:not(:disabled):not(.disabled):active:focus, .btn-pink:not(:disabled):not(.disabled).active:focus,
+.show > .btn-pink.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(237, 149, 142, 0.5) !important;
+}
+
+.border-blue{
+  border-color: #23576c !important;
+}
+
+.btn-outline-pink {
+  color: #23576c;
+  border-color: #23576c;
+}
+
+.btn-outline-pink:hover {
+  color: #ede8d9;
+  background-color: #23576c;
+  border-color: #23576c;
+}
+
+.btn-outline-pink:focus, .btn-outline-pink.focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+.btn-outline-pink.disabled, .btn-outline-pink:disabled {
+  color: #23576c;
+  background-color: transparent;
+}
+
+.btn-outline-pink:not(:disabled):not(.disabled):active, .btn-outline-pink:not(:disabled):not(.disabled).active,
+.show > .btn-outline-pink.dropdown-toggle {
+  color: #ede8d9;
+  background-color: #23576c;
+  border-color: #23576c;
+}
+
+.btn-outline-pink:not(:disabled):not(.disabled):active:focus, .btn-outline-pink:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-pink.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+}
+
+/* 色アイコン */
+.whiteIcon{
+  color:#fff ;text-shadow: 1px 1px #000000,-1px -1px #000000, -1px 1px #000000, 1px -1px #000000;
+}
+
+.blackIcon{
+  color:#000000;text-shadow: 1px 1px #000000,-1px -1px #000000, -1px 1px #000000, 1px -1px #000000;
+}
+
+.redIcon{
+  color:#800000;text-shadow: 1px 1px #000000,-1px -1px #000000, -1px 1px #000000, 1px -1px #000000;
+}
+
+.blueIcon{
+  color:#708090;text-shadow: 1px 1px #000000,-1px -1px #000000, -1px 1px #000000, 1px -1px #000000;
+}
+
+.creamIcon{
+  color:#f5deb3;text-shadow: 1px 1px #000000,-1px -1px #000000, -1px 1px #000000, 1px -1px #000000;
+}
+
+.chocoIcon{
+  color:#330000;text-shadow: 1px 1px #000000,-1px -1px #000000, -1px 1px #000000, 1px -1px #000000;
+}
+
+/* TOPへ戻るボタンの設定 */
+.pagetop {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+.pagetop a {
+    display: block;
+    background-color: #ed746c;
+    text-align: center;
+    color: #18324d;
+    font-size: 40px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50px;
+    text-decoration: none;
+    filter:alpha(opacity=50);
+    -moz-opacity: 0.5;
+}
+.pagetop a:hover {
+    display: block;
+    background-color: #cc5a52;
+    text-align: center;
+    color: #18324d;
+    font-size: 41px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50px;
+    text-decoration: none;
+    filter:alpha(opacity=50);
+    -moz-opacity: 0.5;
+    opacity: 0.8;
+}
