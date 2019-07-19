@@ -48,15 +48,11 @@ unset($_SESSION['token'],$_SESSION['signup_name'],$_SESSION['signup_mail'],$_SES
 setcookie( session_name(), '', time()-10000);
 
 /* メールを送信する */
-
 mb_language("Japanese");
 mb_internal_encoding("UTF-8");
-
 $subject = '【Portfolio.EC】会員登録用URLのお知らせ';
-$message = $signup_name." 様\nPortfolio.ECへの仮会員登録を受け付けました。\n\n24時間以内に以下のURLをクリックしてメールアドレスを有効化してください。\n".$url;
-
+$message = $signup_name." 様\n【Portfolio.EC】への仮会員登録を受け付けました。\n\n24時間以内に以下のURLをクリックしてメールアドレスを有効化してください。\n".$url;
 $header = "Content-Type: text/plain\nReturn-Path: portfolio.ec@ec.nya-n.xyz\nFrom: Portfolio.EC<portfolio.ec@ec.nya-n.xyz>\nSender: Portfolio.EC<portfolio.ec@ec.nya-n.xyz>\nReply-To: portfolio.ec@ec.nya-n.xyz\nOrganization: Portfolio.EC\n";
-
 if($token3 === 'nya-n'){$send = mb_send_mail($signup_mail, $subject, $message, $header);}
 
 ?>

@@ -36,7 +36,9 @@ if(password_verify($login_pass,$data['password'])){
   session_regenerate_id(true);
   $_SESSION['portEcUserId'] = $data['id'];
   $_SESSION['portEcUserName'] = h($data['name']);
-  $_SESSION['portEcUserMail'] = h($data['mail']);
+  if($data['mail']===NULL){
+    $_SESSION['portEcUserMail'] = 'メールアドレスの確認をしてください。';
+  }else{$_SESSION['portEcUserMail'] = h($data['mail']);}
 
   /* MySQLから離脱 */
   unset($dbh);

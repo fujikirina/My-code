@@ -1,6 +1,12 @@
 <?php
 /* メール認証画面 */
 
+session_start();
+
+/* いちどログアウトする */
+unset($_SESSION['portEcUserName'],$_SESSION['portEcUserId'],$_SESSION['portEcUserMail']);
+setcookie( session_name(), '', time()-10000);
+
 $msg = $errMsg = '';
 
 if(!empty($_GET['urltoken'])){
@@ -11,9 +17,8 @@ if(!empty($_GET['urltoken'])){
 require_once('../ec.nya-n.xyz-require/db/db.php');
 
 /* MySQL内のデータを取得
-   DB:pre_memberのurltokenカラムに$urltokenと一致するものがあれば取り出す */
-
-$stmt = $dbh -> prepare("SELECT * FROM pre_member WHERE urltoken =:urltoken AND date > CURRENT_TIMESTAMP - INTERVAL 1 DAY");
+   DB:pre_mailのurltokenカラムに$urltokenと一致するものがあれば取り出す */
+$stmt = $dbh -> prepare("SELECT * FROM pre_mail WHERE urltoken = :urltoken AND date > CURRENT_TIMESTAMP - INTERVAL 1 DAY");
 $stmt->bindValue(":urltoken", $urltoken, PDO::PARAM_STR);
 $stmt -> execute();
 
@@ -22,14 +27,17 @@ foreach ($stmt as $data){
   break;
 }
 
-/* $urltokenと$data['urltoken']が一致したらmemberとmember_cuteにデータを格納し、pre_memberの情報を削除する */
-if($urltoken==$data['urltoken']){
-  $sql = 'INSERT INTO member(name, mail, password) VALUES("'.$data['name'].'","'.$data['mail'].'","'.$data['password'].'")';
+/* $urltokenと$data['urltoken']が一致したらmemberにデータを格納し、pre_mailの情報を削除する */
+if($urltoken===$data['urltoken']){
+  $sql = 'UPDATE member SET mail = :mail WHERE id = :id';
   $dbh->exec("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;");
   $stmt = $dbh -> prepare($sql);
   $dbh->beginTransaction();
-  try{$stmt -> execute();
-    $sql = "DELETE FROM pre_member WHERE urltoken = :urltoken";
+  try{
+    $stmt->bindValue(":mail", $data['mail'], PDO::PARAM_STR);
+    $stmt->bindValue(":id", $data['user_id'], PDO::PARAM_INT);
+    $stmt -> execute();
+    $sql = "DELETE FROM pre_mail WHERE urltoken = :urltoken";
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(":urltoken", $urltoken, PDO::PARAM_STR);
     $stmt -> execute();
@@ -79,7 +87,7 @@ if(empty($_SESSION['portEcUserId'])){unset($dbh);}
           <?php endif ?>
           <?php if(!empty($msg)): ?>
             <div class="alert alert-alert-success" role="alert">
-              <h4 class="alert-heading mb-2"><?php echo '登録が完了しました！' ?></h4>
+              <h4 class="alert-heading mb-2"><?php echo 'メールアドレスの登録が完了しました！' ?></h4>
                 <p class="my-1"><?php echo $msg ?></p>
             </div>
           <?php endif ?>

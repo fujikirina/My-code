@@ -4,10 +4,6 @@
 require_once('./data/function.php');
 session_start();
 
-$id = $_SESSION['portEcUserId'];
-$name = $_SESSION['portEcUserName'];
-$mail = $_SESSION['portEcUserMail'];
-
 /* ログインしていない場合indexに飛ばす */
 if(!empty($_SESSION['portEcUserMail']) && !empty($_SESSION['portEcUserName']) && !empty($_SESSION['portEcUserId'])){
   $id = $_SESSION['portEcUserId'];
@@ -31,7 +27,7 @@ require_once('../ec.nya-n.xyz-require/db/db.php');
 
 /* MySQL内のデータを取得
    DB:memberのidと$idが一致するデータを取り出す */
-  $stmt = $dbh->prepare("SELECT password FROM member WHERE id = :id");
+  $stmt = $dbh->prepare("SELECT password, mail FROM member WHERE id = :id");
   $stmt->bindValue(":id", $id, PDO::PARAM_STR);
   $stmt -> execute();
 
@@ -39,14 +35,27 @@ require_once('../ec.nya-n.xyz-require/db/db.php');
 foreach ($stmt as $data){
   break;
 }
+$mail = $data['mail'];
 
 /* POSTの取得 */
 if(!empty($_POST['name'])){
   $name = $_POST['name'];
 }elseif(!empty($_POST['edit'])){$errMsg[] = '※名前を入力してください。';}
 
-if(!empty($_POST['mail'])){
-  $mail = $_POST['mail'];
+/* メールアドレスの重複確認 */
+  $sql = "SELECT mail FROM member WHERE mail = :mail";
+  $stmt = $dbh->prepare($sql);
+  try{
+    $stmt->bindValue(":mail", $_POST['mail'], PDO::PARAM_STR);
+    $stmt -> execute();
+  }catch(PDOException $e){;}
+foreach ($stmt as $dbMail){break;}
+
+/* POSTの入力があり、メールが一致する場合は何もしない */
+if(!empty($_POST['edit']) && $_POST['mail']==$mail){;
+}elseif(!empty($_POST['edit']) && !empty($dbMail['mail'])){
+  $errMsg[] = '※登録済メールアドレスです。';
+}elseif(!empty($_POST['edit']) && !empty($_POST['mail'])){$pre_mail = $_POST['mail'];
 }elseif(!empty($_POST['edit'])){$errMsg[] = '※メールアドレスを入力してください。';}
 
 if(!empty($_POST['new_password1']) && $_POST['new_password1'] == $_POST['new_password2']){
@@ -55,20 +64,49 @@ if(!empty($_POST['new_password1']) && $_POST['new_password1'] == $_POST['new_pas
   $password = password_hash($_POST['old_password'], PASSWORD_DEFAULT);
 }
 
-/* CSRF対策用トークンとパスワードが合致すれば更新する */
+/* CSRF対策用トークンとパスワードが合致すれば名前とパスワードを更新する */
 if($token === $_SESSION['token'] && password_verify($_POST['old_password'], $data['password'])){
-  $stmt = $dbh->prepare("UPDATE member SET name = :name, mail = :mail, password = :password WHERE id = :id");
+  $stmt = $dbh->prepare("UPDATE member SET name = :name, password = :password WHERE id = :id");
   try{
     $stmt->bindValue(":name", $name, PDO::PARAM_STR);
-    $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
     $stmt->bindValue(":password", $password, PDO::PARAM_STR);
     $stmt->bindValue(":id", $id, PDO::PARAM_STR);
     $stmt -> execute();
-
-    $_SESSION['portEcUserMail'] = h($mail);
     $_SESSION['portEcUserName'] = h($name);
+    $token2 = 'nya-n!';
+    $msg[] = 'ユーザー情報を変更しました。';
   }catch(PDOException $e){$errMsg[] = '※更新エラーです。お手数ですがもう一度お試しください。';}
 }elseif(!empty($_POST['edit'])){$errMsg[] = '※パスワードが入力されていないか、一致しません。';}
+
+/* 更にメールアドレスの変更があればpre_mailを設定する */
+if($token2 === 'nya-n!' && !empty($pre_mail)){
+  $stmt = $dbh->prepare("UPDATE member SET mail = NULL WHERE id = :id");
+  try{
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt -> execute();
+  }catch(PDOException $e){;}
+
+  $urltoken = md5(uniqid(rand(), true));
+  $url = "https://ec.nya-n.xyz/mail-regis.php"."?urltoken=".$urltoken;
+  $stmt = $dbh->prepare("INSERT INTO pre_mail(user_id, mail, urltoken) VALUES(:id, :pre_mail, :urltoken)");
+  try{
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    $stmt->bindValue(":pre_mail", $pre_mail, PDO::PARAM_STR);
+    $stmt->bindValue(":urltoken", $urltoken, PDO::PARAM_INT);
+    $stmt -> execute();
+  }catch(PDOException $e){$errMsg[] = '※更新エラーです。お手数ですがもう一度お試しください。';}
+  $_SESSION['portEcUserMail'] = 'メールアドレスの確認をしてください';
+  $mail = $_SESSION['portEcUserMail'];
+  $msg[] = 'メールアドレスの確認をしてください。';
+
+  /* メールアドレス確認メールを送信する */
+  mb_language("Japanese");
+  mb_internal_encoding("UTF-8");
+  $subject = '【Portfolio.EC】メールアドレス確認用URLのお知らせ';
+  $message = $name." 様\n【Portfolio.EC】のご登録メールアドレスの更新を受け付けました。\n\n24時間以内に以下のURLをクリックしてメールアドレスを有効化してください。\n".$url;
+  $header = "Content-Type: text/plain\nReturn-Path: portfolio.ec@ec.nya-n.xyz\nFrom: Portfolio.EC<portfolio.ec@ec.nya-n.xyz>\nSender: Portfolio.EC<portfolio.ec@ec.nya-n.xyz>\nReply-To: portfolio.ec@ec.nya-n.xyz\nOrganization: Portfolio.EC\n";
+  $send = mb_send_mail($pre_mail, $subject, $message, $header);
+}
 
 ?>
 
@@ -118,12 +156,21 @@ if($token === $_SESSION['token'] && password_verify($_POST['old_password'], $dat
                         <p class="my-1"><?php echo $value."\n" ?></p>
                       <?php endforeach ?>
                     </div>
-                  <?php endif ?></th></tr>
+                  <?php endif ?>
+                  <?php if(!empty($msg)): ?>
+                    <div class="alert alert-success" role="alert">
+                      <h4 class="alert-heading mb-2"><?php echo '変更完了しました！' ?></h4>
+                      <?php foreach($msg as $value): ?>
+                        <p class="my-1"><?php echo $value."\n" ?></p>
+                      <?php endforeach ?>
+                    </div>
+                  <?php endif ?>
+                </th></tr>
                 <tr><th>名前</th><td><input type="name" name="name" class="form-control" value="<?php echo $name ?>"></td></tr>
                 <tr><th>メール</th><td><input type="mail" name="mail" class="form-control" value="<?php echo $mail ?>"></td></tr>
-                <tr><th>旧パスワード</th><td><input type="password" class="form-control" name="old_password"></td></tr>
-                <tr><th>新パスワード</th><td><input type="password" class="form-control" name="new_password1"></td></tr>
-                <tr><th>新パスワード(再入力)</th><td><input type="password" class="form-control" name="new_password2"></td></tr>
+                <tr><th>旧パスワード</th><td><input type="password" class="form-control" name="old_password" maxlength="8"></td></tr>
+                <tr><th>新パスワード</th><td><input type="password" class="form-control" name="new_password1" maxlength="8"></td></tr>
+                <tr><th>新パスワード(再入力)</th><td><input type="password" class="form-control" name="new_password2" maxlength="8"></td></tr>
               </table>
           </div>
           <div class="w-100">

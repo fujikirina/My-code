@@ -44,9 +44,10 @@ require_once('../ec.nya-n.xyz-require/db/db.php');
 /* MySQL内のデータを取得
    DB:memberのmailカラムに$mailと一致するものがあれば取り出す */
 
-  $sql = "SELECT mail FROM member WHERE mail ='".$mail."'";
+  $sql = "SELECT mail FROM member WHERE mail = :mail";
   $stmt = $dbh->prepare($sql);
   try{
+    $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
     $stmt -> execute();
   }catch(PDOException $e){;}
 

@@ -2,7 +2,7 @@
 /* 退会完了 */
 
 session_start();
-$mail = $_SESSION['portEcUserMail'];
+$id = $_SESSION['portEcUserId'];
 
 if(!empty($_POST['userDelete'])){
 
@@ -16,19 +16,19 @@ if(!empty($_POST['userDelete'])){
        "DELETE member, member_cute, order_history, cart
        FROM member
        LEFT JOIN member_cute
-       ON member.mail = member_cute.mail
+       ON member.id = member_cute.user_id
        LEFT JOIN order_history
-       ON member_cute.mail = order_history.mail
+       ON member_cute.user_id = order_history.user_id
        LEFT JOIN cart
-       ON order_history.mail = cart.mail
-       WHERE member.mail = :mail";
+       ON order_history.user_id = cart.user_id
+       WHERE member.id = :id";
     $stmt = $dbh->prepare($sql);
-    $stmt->bindValue(":mail", $mail, PDO::PARAM_STR);
+    $stmt->bindValue(":id", $id, PDO::PARAM_STR);
     $stmt -> execute();
   } catch (Exception $e) {;}
 
   /* セッションを削除し、indexに戻る */
-  unset($_SESSION['portEcUserName'],$_SESSION['portEcUserMail']);
+  unset($_SESSION['portEcUserName'],$_SESSION['portEcUserMail'],$_SESSION['portEcUserId']);
   setcookie( session_name(), '', time()-10000);
 
   /* MySQLから離脱 */
