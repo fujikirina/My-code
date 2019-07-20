@@ -17,10 +17,8 @@ if(!empty($_POST['userDelete'])){
        FROM member
        LEFT JOIN member_cute
        ON member.id = member_cute.user_id
-       LEFT JOIN order_history
-       ON member_cute.user_id = order_history.user_id
        LEFT JOIN cart
-       ON order_history.user_id = cart.user_id
+       ON member_cute.user_id = cart.user_id
        WHERE member.id = :id";
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(":id", $id, PDO::PARAM_STR);
