@@ -1,32 +1,32 @@
 <data>
   <line>
     <submit>False</submit>
-    <date>2019/03/11</date>
-    <todo>ごはんたべる</todo>
-  </line>
-  <line>
-    <submit>True</submit>
-    <date>2019/07/25</date>
+    <date>2019/07/24</date>
     <todo>おやつたべる</todo>
   </line>
   <line>
     <submit>True</submit>
-    <date>2019/07/25</date>
-    <todo>猫と遊ぶ</todo>
+    <date>2019/07/26</date>
+    <todo>ごはんたべる</todo>
   </line>
   <line>
     <submit>True</submit>
-    <date>2019/07/12</date>
-    <todo>布団に入る</todo>
+    <date>2019/07/26</date>
+    <todo>お茶を飲む</todo>
   </line>
   <line>
     <submit>False</submit>
-    <date>2019/08/21</date>
-    <todo>朝起きる</todo>
+    <date>2019/07/26</date>
+    <todo>買い物をする</todo>
   </line>
   <line>
     <submit>False</submit>
-    <date>2020/08/15</date>
-    <todo>お昼寝する</todo>
+    <date>2019/08/30</date>
+    <todo>布団にはいる</todo>
+  </line>
+  <line>
+    <submit>False</submit>
+    <date>2019/09/20</date>
+    <todo>外出する</todo>
   </line>
 </data>

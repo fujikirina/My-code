@@ -35,12 +35,12 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.submitButton = new System.Windows.Forms.Button();
+            this.allDeleteButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.削除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.displayButton = new System.Windows.Forms.Button();
+            this.hiddunButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -103,31 +103,31 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "やること";
             // 
-            // button1
+            // submitButton
             // 
-            this.button1.AccessibleDescription = "submit";
-            this.button1.Font = new System.Drawing.Font("游ゴシック", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(532, 306);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(230, 74);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "登録";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.submitButton.AccessibleDescription = "";
+            this.submitButton.Font = new System.Drawing.Font("游ゴシック", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.submitButton.Location = new System.Drawing.Point(532, 306);
+            this.submitButton.Margin = new System.Windows.Forms.Padding(4);
+            this.submitButton.Name = "submitButton";
+            this.submitButton.Size = new System.Drawing.Size(230, 74);
+            this.submitButton.TabIndex = 5;
+            this.submitButton.Text = "登録";
+            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
-            // button2
+            // allDeleteButton
             // 
-            this.button2.AccessibleDescription = "delete";
-            this.button2.Font = new System.Drawing.Font("游ゴシック", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(532, 415);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 74);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "全削除";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.allDeleteButton.AccessibleDescription = "delete";
+            this.allDeleteButton.Font = new System.Drawing.Font("游ゴシック", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.allDeleteButton.Location = new System.Drawing.Point(532, 415);
+            this.allDeleteButton.Margin = new System.Windows.Forms.Padding(4);
+            this.allDeleteButton.Name = "allDeleteButton";
+            this.allDeleteButton.Size = new System.Drawing.Size(230, 74);
+            this.allDeleteButton.TabIndex = 6;
+            this.allDeleteButton.Text = "全削除";
+            this.allDeleteButton.UseVisualStyleBackColor = true;
+            this.allDeleteButton.Click += new System.EventHandler(this.allDeleteButton_Click);
             // 
             // contextMenuStrip1
             // 
@@ -144,33 +144,33 @@
             this.削除ToolStripMenuItem.Text = "選択中の行を削除(&D)";
             this.削除ToolStripMenuItem.Click += new System.EventHandler(this.削除ToolStripMenuItem_Click);
             // 
-            // button4
+            // displayButton
             // 
-            this.button4.AccessibleDescription = "save";
-            this.button4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button4.Font = new System.Drawing.Font("游ゴシック", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button4.Location = new System.Drawing.Point(532, 48);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(230, 35);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "完了済タスクの表示";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.Button4_Click_1);
+            this.displayButton.AccessibleDescription = "save";
+            this.displayButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.displayButton.Font = new System.Drawing.Font("游ゴシック", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.displayButton.Location = new System.Drawing.Point(532, 48);
+            this.displayButton.Margin = new System.Windows.Forms.Padding(4);
+            this.displayButton.Name = "displayButton";
+            this.displayButton.Size = new System.Drawing.Size(230, 35);
+            this.displayButton.TabIndex = 8;
+            this.displayButton.Text = "完了済タスクの表示";
+            this.displayButton.UseVisualStyleBackColor = false;
+            this.displayButton.Click += new System.EventHandler(this.displayButton_Click_1);
             // 
-            // button5
+            // hiddunButton
             // 
-            this.button5.AccessibleDescription = "save";
-            this.button5.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button5.Font = new System.Drawing.Font("游ゴシック", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button5.Location = new System.Drawing.Point(532, 48);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(230, 35);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "完了済タスクの非表示";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            this.hiddunButton.AccessibleDescription = "save";
+            this.hiddunButton.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.hiddunButton.Font = new System.Drawing.Font("游ゴシック", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.hiddunButton.Location = new System.Drawing.Point(532, 48);
+            this.hiddunButton.Margin = new System.Windows.Forms.Padding(4);
+            this.hiddunButton.Name = "hiddunButton";
+            this.hiddunButton.Size = new System.Drawing.Size(230, 35);
+            this.hiddunButton.TabIndex = 9;
+            this.hiddunButton.Text = "完了済タスクの非表示";
+            this.hiddunButton.UseVisualStyleBackColor = false;
+            this.hiddunButton.Click += new System.EventHandler(this.hiddunButton_Click);
             // 
             // ToDoList
             // 
@@ -178,10 +178,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.hiddunButton);
+            this.Controls.Add(this.displayButton);
+            this.Controls.Add(this.allDeleteButton);
+            this.Controls.Add(this.submitButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -210,11 +210,11 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button submitButton;
+        private System.Windows.Forms.Button allDeleteButton;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 削除ToolStripMenuItem;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button displayButton;
+        private System.Windows.Forms.Button hiddunButton;
     }
 }
